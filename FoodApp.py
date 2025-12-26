@@ -1,9 +1,10 @@
 from Models.User import User
 from Models.UserManager import UserManager
+from Controllers.MainMenu import MainMenu
 
 class LoginSystem:
 
-    def login(self):
+    def Login(self):
         mail = input("Email Id: ")
         password = input("Password: ")
 
@@ -11,10 +12,12 @@ class LoginSystem:
 
         if user is not None:
             print("Login Successful...")
+            menu = MainMenu()
+            menu.start()
         else:
             print("please retry")
 
-    def register(self):
+    def Register(self):
         name = input("Name: ")
         mobile = int(input("Mobile Number: "))
         mail_id = input("Email Id: ")
@@ -23,21 +26,15 @@ class LoginSystem:
         user = User(name, mobile, mail_id, password)
         UserManager.add_users(user)
 
-    def guest_login(self):
+    def Guest(self):
         pass
 
+    def Exit(self):
+        print("Thank you for using our Food App... 🥰")
+        exit()
+
     def validate_option(self, option):
-        if option == 1:
-            self.login()
-        elif option == 2:
-            self.register()
-        elif option == 3:
-            self.guest_login()
-        elif option == 4:
-            print("Thank you for using our Food App... 🥰")
-            exit()
-        else:
-            print("Invalid Choice.... Please Retry")
+        getattr(self, option)()
 
 class FoodApp:
     login_options = {1:"Login", 2:"Register", 3:"Guest", 4:"Exit"}
@@ -55,8 +52,8 @@ class FoodApp:
 
             try:
                 choice = int(input("Please Enter Your Choice: "))
-                login_system.validate_option(choice)
-            except ValueError:
+                login_system.validate_option(FoodApp.login_options[choice])
+            except (ValueError, KeyError):
                 print("Invalid Choice... Please retry")
 
 FoodApp.initialize()
