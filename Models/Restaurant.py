@@ -1,5 +1,5 @@
-from AbstractItem import AbstractItem
-from FoodMenu import FoodMenu
+from Models.AbstractItem import AbstractItem
+from Models.FoodMenu import FoodMenu
 
 class Restaurant(AbstractItem):
     def __init__(self, name, rating, location, offer):
@@ -20,3 +20,6 @@ class Restaurant(AbstractItem):
                 return
 
             self.__FoodMenus = items
+
+    def DisplayItem(self, start):
+        print(f"{start}. {self.Name} => Rating: {self.Rating}")

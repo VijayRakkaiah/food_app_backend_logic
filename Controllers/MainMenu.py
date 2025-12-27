@@ -1,4 +1,5 @@
-from FoodManager import FoodManager
+from Controllers.FoodManager import FoodManager
+from Models.Cart import Cart
 
 class MainMenu:
 
@@ -8,17 +9,23 @@ class MainMenu:
         self.__FoodManager = FoodManager()
 
     def ShowRestaurant(self):
-        for res in self.__FoodManager.Restaurants:
-            print(f">> {res.Name} => Rating: {res.Rating}")
+        for i, res in enumerate(self.__FoodManager.Restaurants, 1):
+            res.DisplayItem(i)
 
         choice = int(input("Please select the Restaurants: "))
-        res = self.__FoodManager.Restaurants[choice]
+        res = self.__FoodManager.Restaurants[choice-1]
         self.ShowFoodMenus(res.FoodMenus)
 
 
-    def ShowFoodItems(self, foot_items = None):
-        if foot_items is not None:
-            pass
+    def ShowFoodItems(self, food_items = None):
+        if food_items is not None:
+            for i, food_item in enumerate(food_items, 1):
+                food_item.DisplayItem(i)
+
+            choices = list(map(int, input("Enter your order (eg. 1, 1, 2): ").split(",")))
+            cart = Cart(food_items, choices)
+            cart.ProcessOrder(food_items)
+
         else:
             pass
 
@@ -40,7 +47,12 @@ class MainMenu:
         pass
 
     def ShowFoodMenus(self, menus):
-        pass
+        print("List of menus available")
+        for i, menu in enumerate(menus, start=1):
+            menu.DisplayItem(i)
+        choice = int(input("Please choose menu: "))
+        food_items = menus[choice-1].FoodItems
+        self.ShowFoodItems(food_items)
 
     def start(self):
 
