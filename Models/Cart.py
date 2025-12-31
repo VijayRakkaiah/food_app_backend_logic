@@ -30,5 +30,16 @@ class Cart:
         self.ProcessPayment(total)
 
     def ProcessPayment(self, amount):
-        pass
+        print("\nSelect Payment Method")
+        print("1. Cash on Delivery")
+        print("2. UPI / Card")
+
+        choice = int(input("Enter choice: "))
+
+        if choice in [1, 2]:
+            print(f"Payment of ₹{amount} successful ✅")
+            print("Order placed successfully...")
+        else:
+            print("Invalid payment option")
+
 

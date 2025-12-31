@@ -27,10 +27,12 @@ class LoginSystem:
         UserManager.add_users(user)
 
     def Guest(self):
-        pass
+        print("Continuing as Guest...")
+        menu = MainMenu()
+        menu.start()
 
     def Exit(self):
-        print("Thank you for using our Food App... 🥰")
+        print("Thank you for using our Food App...")
         exit()
 
     def validate_option(self, option):

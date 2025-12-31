@@ -25,7 +25,6 @@ class MainMenu:
             choices = list(map(int, input("Enter your order (eg. 1, 1, 2): ").split(",")))
             cart = Cart(food_items, choices)
             cart.ProcessOrder(food_items)
-
         else:
             pass
 
@@ -41,10 +40,24 @@ class MainMenu:
             print(f"No restaurants found on the name {res_name}")
 
     def SearchFoodItems(self):
-        pass
+        food_name = input("Enter Food Item Name: ").lower()
+        found_items = []
+
+        for restaurant in self.__FoodManager.Restaurants:
+            for menu in restaurant.FoodMenus:
+                for item in menu.FoodItems:
+                    if food_name in item.Name.lower():
+                        found_items.append(item)
+
+        if found_items:
+            print("Food Items Found:")
+            self.ShowFoodItems(found_items)
+        else:
+            print("No food items found with that name.")
 
     def Logout(self):
-        pass
+        print("Logged out successfully...")
+        exit()
 
     def ShowFoodMenus(self, menus):
         print("List of menus available")
